@@ -22,15 +22,28 @@ let TODOS = [
     },
 ];
 
+
+
 // Your code here
 const port = 3000
 
-app.get('/', (req, res) => {
+app.use(express.json());
+
+app.get('/todos', (req, res) => {
     res.send(TODOS)
 })
-//HALLOOOO oooooo
+
+app.post('/todos', (req, res) => {
+    console.log(req.body);
+
+    res.send(req.body);
+})
+
+
+
 
 app.listen(port, () => {
     console.log('Listening Port ${port}')
 })
+
 
