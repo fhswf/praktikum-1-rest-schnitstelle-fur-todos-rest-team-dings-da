@@ -31,7 +31,7 @@ app.use(express.json());
 
 app.get('/todos', (req, res) => {
     
-    res.send(TODOS)
+    res.send(TODOS);
 })
 
 app.get('/todos/:id', (req, res) => {
