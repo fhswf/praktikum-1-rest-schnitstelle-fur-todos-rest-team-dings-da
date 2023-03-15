@@ -59,7 +59,7 @@ app.post('/todos', (req, res) => {
 
 })
 
-/*
+
 app.put('/todos/:id', (req, res) => {
     let reqjson = req.body;
     let id = req.params.id;
@@ -68,7 +68,7 @@ app.put('/todos/:id', (req, res) => {
     let found = false;
     for(let i = 0; i < TODOS.length; i ++)
     {
-        if(TODOS[i].id = id)
+        if(TODOS[i].id == id)
         {
             TODOS[i] = reqjson;
             TODOS[i].id = id;
@@ -86,7 +86,31 @@ app.put('/todos/:id', (req, res) => {
     res.send(send);
 
 })
-*/
+
+app.delete('/todos/:id', (req, res) => {
+    let id = req.params.id;
+
+    let at = 0;
+    let found = false;
+    for(let i = 0; i < TODOS.length; i ++)
+    {
+        if(TODOS[i].id == id)
+        {
+            TODOS.splice(i, 1);
+            found = true;
+        }
+    }
+
+    let send  = "ERROR NOT FOUND"
+    if(found)
+    {
+        send = "Delete successfull";
+    }
+
+    res.send(send);
+
+})
+
 
 
 
