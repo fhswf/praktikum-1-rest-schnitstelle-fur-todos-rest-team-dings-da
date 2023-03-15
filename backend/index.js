@@ -30,20 +30,90 @@ const port = 3000
 app.use(express.json());
 
 app.get('/todos', (req, res) => {
+    
     res.send(TODOS)
 })
 
-app.post('/todos', (req, res) => {
-    console.log(req.body);
-
-    res.send(req.body);
+app.get('/todos/:id', (req, res) => {
+    let ret = 0; 
+    for(let i = 0; i<TODOS.length; i++)
+    {
+        if(TODOS[i].id == req.params.id)
+        {
+            ret = TODOS[i];
+        }
+    }
+    if(ret == 0)
+    {
+        ret = "NOT Found";
+    }
+    res.send(ret);
 })
 
+
+app.post('/todos', (req, res) => {
+    let reqjson = req.body;
+    reqjson.id  = getID();
+    TODOS.push(reqjson);
+    res.send(reqjson);
+
+})
+
+/*
+app.put('/todos/:id', (req, res) => {
+    let reqjson = req.body;
+    let id = req.params.id;
+
+    let at = 0;
+    let found = false;
+    for(let i = 0; i < TODOS.length; i ++)
+    {
+        if(TODOS[i].id = id)
+        {
+            TODOS[i] = reqjson;
+            TODOS[i].id = id;
+            at = i;
+            found = true;
+        }
+    }
+
+    let send  = "ERROR NOT FOUND"
+    if(found)
+    {
+        send = TODOS[at]
+    }
+
+    res.send(send);
+
+})
+*/
 
 
 
 app.listen(port, () => {
-    console.log('Listening Port ${port}')
+    console.log('Listening Port ${port} ')
 })
 
+
+function getID()
+{
+    let doubleID;
+    let ID;
+    do
+    {
+        ID = Math.floor( Math.random() * 8999999999999) + 1000000000000;
+        doubleID = false;
+        for(let i = 0; i < TODOS.length; i++)
+        {
+            if(TODOS[i].id == ID)
+            {
+                doubleID  = true;
+            }
+        }
+
+
+    }
+    while(doubleID)
+    return ID;
+}
 
